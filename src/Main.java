@@ -3,13 +3,13 @@ import java.util.Date;
 
 public class Main {
 
-	@SuppressWarnings("deprecation")
+	
 	public static void main(String[] args) {
 		
 		//You may test that your code works find here
 		//Please check that your code works and has no 
 		//compilation problems before to submit
-		Student students[] = new Student[5];
+		/*Student students[] = new Student[5];
 		System.out.println(students.length);
 		students[0] = new Student(398,"Mahammad Irshad",new Date(1996,06,16),15.00);
 		StudentGroup sg  = new StudentGroup(5);
@@ -23,7 +23,7 @@ public class Main {
 		for(int i=0; i<5; i++){
 			if(sg.getStudent(i)!=null)
 			System.out.println(sg.getStudent(i).getFullName());
-		}
+		}*/
 		
 	}
 
