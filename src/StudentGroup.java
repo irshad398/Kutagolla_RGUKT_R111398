@@ -40,7 +40,7 @@ public class StudentGroup implements StudentArrayOperation {
 		this.students = students;
 	}
 
-	public Student getStudent(int index) {
+	public Student getStudent(int index)throws IllegalArgumentException {
 		if (index < 0 || index >= getStudentsLength()) {
 			throw new IllegalArgumentException();
 		}
@@ -220,9 +220,12 @@ public class StudentGroup implements StudentArrayOperation {
 		return null;
 	}
 
-	public int getCurrentAgeByDate(int indexOfStudent) {
+	public int getCurrentAgeByDate(int indexOfStudent) throws IllegalArgumentException{
 		// Add your implementation here
-		return 0;
+		if(indexOfStudent==0)
+			throw new IllegalArgumentException();
+		int age = getAgeOfStudent(indexOfStudent);
+		return age;
 	}
 
 	public Student[] getStudentsByAge(int age) {
@@ -241,13 +244,36 @@ public class StudentGroup implements StudentArrayOperation {
 
 	public Student[] getStudentsWithMaxAvgMark() {
 		// Add your implementation here
-		return null;
+		double maxAvg = getMaxAvg();
+		int k=0;
+		Student [] studentsOfMaxAvg = new Student[getStudentsLength()];
+		
+		for(int i=0;i<getStudentsLength();i++){
+			if(students[i].getAvgMark()==maxAvg){
+				studentsOfMaxAvg[k]=students[i];
+				k++;
+			}
+		}
+		return studentsOfMaxAvg;
 	}
 
-	public Student getNextStudent(Student student) {
+	public Student getNextStudent(Student student) throws IllegalArgumentException{
 		// Add your implementation here
-		return null;
+		int index = 0;
+		if (student == null) {
+			throw new IllegalArgumentException();
+		}
+		while (index < getStudentsLength()) {
+			if (student.getId() == students[index].getId()) {
+				break;
+			}
+			index++;
+		}
+		
+		return this.students[index+1];
 	}
+	
+	
 
 	private int getStudentsLength() {
 		int length = 0;
@@ -270,5 +296,28 @@ public class StudentGroup implements StudentArrayOperation {
 	      age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
 	      System.out.println("Your age is: "+age);
 		return age;
+	}
+	private int getAgeOfStudent(int index){
+		int age = 0;
+	    int factor = 0; 
+		Date today = new Date();
+		Calendar cal1 = new GregorianCalendar();
+	      Calendar cal2 = new GregorianCalendar();
+	      cal1.setTime(students[index].getBirthDate());
+	      cal2.setTime(today);
+	      if(cal2.get(Calendar.DAY_OF_YEAR) < cal1.get(Calendar.DAY_OF_YEAR)) {
+	            factor = -1; 
+	      }
+	      age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
+	      System.out.println("Your age is: "+age);
+		return age;
+	}
+	private double getMaxAvg(){
+		double maxAvg=students[0].getAvgMark();
+		for(int i=1;i<getStudentsLength();i++){
+			if(students[i].getAvgMark()>maxAvg)
+				maxAvg = students[i].getAvgMark();
+		}
+		return maxAvg;
 	}
 }
