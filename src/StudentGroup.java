@@ -1,4 +1,6 @@
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * A fix-sized array of students array length should always be equal to the
@@ -225,7 +227,16 @@ public class StudentGroup implements StudentArrayOperation {
 
 	public Student[] getStudentsByAge(int age) {
 		// Add your implementation here
-		return null;
+		int k=0;
+		Student [] studentsOfGivenAge = new Student[getStudentsLength()];
+		
+		for(int i=0;i<getStudentsLength();i++){
+			if(getAgeOfStudent(students[i])==age){
+				studentsOfGivenAge[k]=students[i];
+				k++;
+			}
+		}
+		return studentsOfGivenAge;
 	}
 
 	public Student[] getStudentsWithMaxAvgMark() {
@@ -244,5 +255,20 @@ public class StudentGroup implements StudentArrayOperation {
 			length++;
 		}
 		return length;
+	}
+	private int getAgeOfStudent(Student student){
+		int age = 0;
+	    int factor = 0; 
+		Date today = new Date();
+		Calendar cal1 = new GregorianCalendar();
+	      Calendar cal2 = new GregorianCalendar();
+	      cal1.setTime(student.getBirthDate());
+	      cal2.setTime(today);
+	      if(cal2.get(Calendar.DAY_OF_YEAR) < cal1.get(Calendar.DAY_OF_YEAR)) {
+	            factor = -1; 
+	      }
+	      age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
+	      System.out.println("Your age is: "+age);
+		return age;
 	}
 }
