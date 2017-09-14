@@ -187,7 +187,7 @@ public class StudentGroup implements StudentArrayOperation {
 			throw new IllegalArgumentException();
 		else{
 			for(int i=0;i<getStudentsLength();i++){
-				if(students[i].getBirthDate().compareTo(date)<0){
+				if(students[i].getBirthDate().compareTo(date)<=0){
 					bornBeforeDateStudents[k]=students[i];
 					k++;
 				}
@@ -198,7 +198,19 @@ public class StudentGroup implements StudentArrayOperation {
 
 	public Student[] getBetweenBirthDates(Date firstDate, Date lastDate) {
 		// Add your implementation here
-		return null;
+		Student [] bornBetweenDatesStudents = new Student[getStudentsLength()];
+		int k = 0;
+		if(firstDate == null || lastDate == null)
+			throw new IllegalArgumentException();
+		else{
+			for(int i=0;i<getStudentsLength();i++){
+				if(students[i].getBirthDate().compareTo(firstDate)>=0 || students[i].getBirthDate().compareTo(lastDate)<=0){
+					bornBetweenDatesStudents[k]=students[i];
+					k++;
+				}
+			}
+		}
+		return bornBetweenDatesStudents;
 	}
 
 	public Student[] getNearBirthDate(Date date, int days) {
